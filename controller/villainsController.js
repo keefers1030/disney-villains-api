@@ -7,7 +7,7 @@ const getAllVillains = async (req, res) => {
   return res.send(villains)
 }
 const getVillainSlug = async (req, res) => {
-  const villains = await models.villains.findOne({ where: { id } })
+  const villains = await models.villains.findOne({ where: { slug } })
 
   return res.send(villains)
 }
