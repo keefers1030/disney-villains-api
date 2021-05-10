@@ -6,11 +6,17 @@ const getAllVillains = async (req, res) => {
 
   return res.send(villains)
 }
-const getVillainSlug = async (req, res) => {
-  const villains = await models.villains.findOne({ where: { slug } })
 
-  return res.send(villains)
+const getVillainSlug = async (req, res) => {
+  try {
+    const { slug } = req.params
+
+    const villains = await models.villains.findOne({ where: { slug } })
+
+    return res.send(villains)
+  } catch (e) { return res.status(404).send('404: villain not found') }
 }
+
 const addNewVillain = async (req, res) => {
   const {
     name, movie, slug

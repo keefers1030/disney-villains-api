@@ -10,7 +10,7 @@ app.get('/villains', getAllVillains)
 
 app.get('/villains/:slug', getVillainSlug)
 
-app.post('/teams', express.json(), addNewVillain)
+app.post('/villains', express.json(), addNewVillain)
 
 app.all('*', (req, res) => {
   return res.sendStatus(404)
