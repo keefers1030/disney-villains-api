@@ -16,6 +16,6 @@ app.all('*', (req, res) => {
   return res.sendStatus(404)
 })
 
-app.listen(8888, () => {
+app.listen(1337, () => {
   console.log('Listening on port 8888...')
 })
