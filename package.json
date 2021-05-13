@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
-    "test": "node node_modules/mocha/bin/mocha tests/**/*.tests.js"
+    "test": "node node_modules/mocha/bin/mocha tests/**/*.test.js"
   },
   "repository": {
     "type": "git",
@@ -25,5 +25,9 @@
     "pug": "^3.0.2",
     "pug-lint": "^2.6.0",
     "sequelize": "^6.6.2"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "mocha": "^8.4.0"
   }
 }

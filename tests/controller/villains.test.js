@@ -5,18 +5,18 @@ const { describe, it } = require('mocha')
 const { getAllVillains, getVillainSlug, addNewVillain } = require('../../controller/villainsController')
 const models = require ('../../models')
 const { villainsList, singleVillain } = require('../mocks/villains')
-const { req } = require('express')
-const { heroesList } = require('../../../super-hero-api/tests/mocks/heroes')
+const { request } = require('express')
+const { VillainsList } = require('../mocks/villains')
 
 chai.use(sinonChai)
 const { expect } = chai
 
 describe('Villains controller', () => {
 
-  let stubbedFineOne
+  let stubbedFindOne
 
   before(() => {
-    stubbedFindOne = sinon.stub(models.villains, 'findone')
+    stubbedFindOne = sinon.stub(models.villains, 'findOne')
   })
 
   afterEach(() => {
@@ -24,7 +24,7 @@ describe('Villains controller', () => {
   })
 
   describe('Gets all villains', () => {
-    it('gets a list of villains from DB and calls response.send() with that list', async => {
+    it('gets a list of villains from DB and calls response.send() with that list', aynsc => {
       const stubbedFindAll = sinon.stub(models.villains, 'findAll').returns(villainsList)
       const stubbedSend = sinon.stub()
       const response = { send: stubbedSend }
