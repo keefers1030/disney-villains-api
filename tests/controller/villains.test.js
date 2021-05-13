@@ -34,5 +34,20 @@ describe('Villains controller', () => {
       expect(stubbedSend).to.have.been.calledWith(villainsList)
     })
   })
+
+  describe('Get villain by slug', () => {
+    it('get a villain from DB using provided slug and calls response.send() with the villain', async => {
+      stubbedFindOne.returns(singleVillain)
+      const request = {params: { slug: 'ursula'}}
+      const stubbedSend = sinon.stub()
+      const response = { send: stubbedSend }
+
+      await getVillainSlug(request, response)
+      expect(stubbedFindOne).to.have.callCount(1)
+      expect(stubbedFindOne.to.have.been.calledWith({ where: { slug: 'ursula '} }))
+      expect(stubbedSend).to.have.been.calledWith(singleVillain)
+    })
+  })
+
 })
 
