@@ -51,3 +51,5 @@ VALUES
   ('Shan Yu', 'Mulan', 'shan-yu'),
   ('Shere Khan', 'The Jungle Book', 'shere-khan'),
   ('Ursula', 'The Little Mermaid', 'ursula');
+
+  CREATE USER 'villains' @'localhost' IDENTIFIED WITH mysql_native_password BY 'password123'; 
