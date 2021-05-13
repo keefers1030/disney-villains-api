@@ -21,20 +21,20 @@ describe('Villains controller', () => {
     stubbedFindOne.resetBehavior()
   })
 
-  describe('Gets all villains', () => {
-    it('gets a list of villains from DB and calls response.send() with that list', aynsc => {
+describe('Get villain by id', () => {
+    it('get a villain with the provided DB and calls response.send() with it', async () => {
       const stubbedFindAll = sinon.stub(models.villains, 'findAll').returns(villainsList)
       const stubbedSend = sinon.stub()
       const res = { send: stubbedSend }
 
       await getAllVillains({}, res)
-      expect(stubbedFindAll.to.have.callCount(1))
+      expect(stubbedFindAll).to.have.callCount(1)
       expect(stubbedSend).to.have.been.calledWith(villainsList)
     })
   })
 
   describe('Get villain by slug', () => {
-    it('get a villain from DB using provided slug and calls response.send() with the villain', async => {
+    it('get a villain from DB using provided slug and calls response.send() with the villain', async () => {
       stubbedFindOne.returns(singleVillain)
       const req = {params: { slug: 'ursula'}}
       const stubbedSend = sinon.stub()
