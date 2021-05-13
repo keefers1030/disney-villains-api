@@ -55,7 +55,6 @@ describe('Villains controller', () => {
       await getVillainSlug(req, res)
       expect(stubbedFindOne).to.have.been.calledWith({ where: { slug: 'not-found' } })
       expect(stubbedSendStatus).to.have.been.calledWith(404)
-    })
 
     it('returns a 500 error with a message', async () => {
       stubbedFindOne.throws('Error!')
@@ -71,6 +70,7 @@ describe('Villains controller', () => {
       expect(stubbedStatus).to.have.been.calledWith(500)
       expect(stubbedSend).to.have.been.calledWith('unable to retrieve villain, please try again') })
   })
+    })
 
   describe('Save new villain', () => {
     it('accepts new villain details and saves them as a villain, returns the saved hero with a 201 status', async () => {
