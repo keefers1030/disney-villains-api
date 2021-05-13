@@ -73,6 +73,22 @@ describe('Villains controller', () => {
     expect(stubbedSend).to.have.been.calledWith('unable to retrieve villain, please try again')  })
   })
 
+  describe('Save new villain', () => {
+  it('accepts new villain details and saves them as a villain, returns the saved hero with a 201 status', async () => {
+    const stubbedCreate = sinon.stub(models.villains, 'create').returns(singleVillain)
+    const request = { body: singleVillain}
+    const stubbedSend = sinon.stub()
+    const stubbedStatus = sinon.stub().returns( { send: stubbedSend } )
+    const response = { status: stubbedStatus }
+
+    await addNewVillain(request, response)
+
+    expect(stubbedCreate).to.have.been.calledWith(singleVillain)
+    expect(stubbedStatus).to.have.been.calledWith(201)
+    expect(stubbedSend).to.have.been.calledWith(singleVillain)
+
+    })
+  })
 
 })
 
