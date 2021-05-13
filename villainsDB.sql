@@ -50,4 +50,4 @@ VALUES
   ('Scar', 'The Lion King', 'scar'),
   ('Shan Yu', 'Mulan', 'shan-yu'),
   ('Shere Khan', 'The Jungle Book', 'shere-khan'),
-  ('Ursula', 'The Little Mermaid', 'ursula'),
+  ('Ursula', 'The Little Mermaid', 'ursula');
