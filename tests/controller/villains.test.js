@@ -47,7 +47,23 @@ describe('Villains controller', () => {
       expect(stubbedFindOne.to.have.been.calledWith({ where: { slug: 'ursula '} }))
       expect(stubbedSend).to.have.been.calledWith(singleVillain)
     })
+
+    it('return a 404 when no villain is found', async () => {
+      stubbedFindOne.returns(null)
+      const request = { params: { slug: 'not-found' } }
+      const stubbedSendStatus = sinon.stub()
+
+      await getVillainSlug(request, response)
+      expect(stubbedFindOne).to.have.been.calledWith( { where: { slug: 'not-found'} } )
+      expect(stubbedSendStatus).to.have.been.calledWith(404)
+    })
+
   })
+    stubbedFindOne.throws('Error!')
+    const request = { }
+  })
+
+
 
 })
 
