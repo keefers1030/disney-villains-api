@@ -8,11 +8,17 @@ const getAllVillains = async (req, res) => {
 }
 
 const getVillainSlug = async (req, res) => {
-  const { slug } = req.params
+  try {
+    const { slug } = req.params
 
-  const villains = await models.villains.findOne({ where: { slug } })
+    const villains = await models.villains.findOne({ where: { slug } })
 
-  return villains ? res.send(villains) : res.sendStatus(404)
+    return villains
+      ? res.send(villains)
+      : res.sendStatus(404)
+  } catch (error) {
+    return res.status(500).send('Unable to retrieve villain, please try again')
+  }
 }
 
 const addNewVillain = async (req, res) => {

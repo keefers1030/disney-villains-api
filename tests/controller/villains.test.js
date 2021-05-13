@@ -55,11 +55,10 @@ describe('Villains controller', () => {
       await getVillainSlug(req, res)
       expect(stubbedFindOne).to.have.been.calledWith({ where: { slug: 'not-found' } })
       expect(stubbedSendStatus).to.have.been.calledWith(404)
-    })
-    
+
     it('returns a 500 error with a message', async () => {
-      stubbedFindOne.throws('Error!')
-      const req = { params: { id: 'error' } }
+      stubbedFindOne.throws('ERROR!')
+      const req = { params: { slug: 'error' } }
       const stubbedSend = sinon.stub()
       const stubbedStatus = sinon.stub().returns({ send: stubbedSend })
       const res = { status: stubbedStatus }
@@ -69,7 +68,8 @@ describe('Villains controller', () => {
       expect(stubbedStatus).to.have.been.calledWith(500)
       expect(stubbedSend).to.have.been.calledWith('unable to retrieve villain, please try again')
     })
-  })
+    })
+    })
 
   describe('Save new villain', () => {
     it('accepts new villain details and saves to DB, returns the saved hero with a 201 status', async () => {
@@ -86,4 +86,7 @@ describe('Villains controller', () => {
       expect(stubbedSend).to.have.been.calledWith(singleVillain)
     })
   })
-})
+    })
+
+
+
