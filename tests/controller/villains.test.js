@@ -31,17 +31,6 @@ describe('Villains controller', () => {
       expect(stubbedFindAll).to.have.callCount(1)
       expect(stubbedSend).to.have.been.calledWith(villainsList)
     })
-
-    it('return a 404 when incorrect parameters are input by user', async () => {
-      stubbedFindOne.returns(null)
-      const req = { params: { slug: 'not-found' } }
-      const stubbedSendStatus = sinon.stub()
-      const res = { sendStatus: stubbedSendStatus }
-
-      await getVillainSlug(req, res)
-      expect(stubbedFindOne).to.have.been.calledWith({ where: { slug: 'not-found' } })
-      expect(stubbedSendStatus).to.have.been.calledWith(404)
-    })
   })
 
   describe('Get villain by slug', () => {
@@ -52,7 +41,7 @@ describe('Villains controller', () => {
       const res = { send: stubbedSend }
 
       await getVillainSlug(req, res)
-      expect(stubbedFindOne).to.have.callCount(2)
+      expect(stubbedFindOne).to.have.callCount(1)
       expect(stubbedFindOne).to.have.been.calledWith({ where: { slug: 'ursula' } })
       expect(stubbedSend).to.have.been.calledWith(singleVillain)
     })
@@ -67,11 +56,23 @@ describe('Villains controller', () => {
       expect(stubbedFindOne).to.have.been.calledWith({ where: { slug: 'not-found' } })
       expect(stubbedSendStatus).to.have.been.calledWith(404)
     })
+    
+    it('returns a 500 error with a message', async () => {
+      stubbedFindOne.throws('Error!')
+      const req = { params: { id: 'error' } }
+      const stubbedSend = sinon.stub()
+      const stubbedStatus = sinon.stub().returns({ send: stubbedSend })
+      const res = { status: stubbedStatus }
 
+      await getVillainSlug(req, res)
+      expect(stubbedFindOne).to.have.been.calledWith({ where: { slug: 'error' } })
+      expect(stubbedStatus).to.have.been.calledWith(500)
+      expect(stubbedSend).to.have.been.calledWith('unable to retrieve villain, please try again')
+    })
   })
 
   describe('Save new villain', () => {
-    it('accepts new villain details and saves them as a villain, returns the saved hero with a 201 status', async () => {
+    it('accepts new villain details and saves to DB, returns the saved hero with a 201 status', async () => {
       const stubbedCreate = sinon.stub(models.villains, 'create').returns(singleVillain)
       const req = { body: singleVillain }
       const stubbedSend = sinon.stub()
@@ -84,18 +85,5 @@ describe('Villains controller', () => {
       expect(stubbedStatus).to.have.been.calledWith(201)
       expect(stubbedSend).to.have.been.calledWith(singleVillain)
     })
-    it('returns a 500 error with a message', async () => {
-      stubbedFindOne.throws('Error!')
-      const req = { params: { slug: 'error-slug' } }
-
-      const stubbedSend = sinon.stub()
-      const stubbedStatus = sinon.stub().returns({ send: stubbedSend })
-      const res = { status: stubbedStatus }
-
-      await getVillainSlug(req, res)
-
-      expect(stubbedFindOne).to.have.been.calledWith({ where: { slug: 'error-slug' } })
-      expect(stubbedStatus).to.have.been.calledWith(500)
-      expect(stubbedSend).to.have.been.calledWith('unable to create new villain, please try again') })
   })
 })
