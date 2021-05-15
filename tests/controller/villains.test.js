@@ -74,7 +74,7 @@ describe('Villains controller', () => {
   })
 
   describe('Save new villain', () => {
-    it('accepts new villain details and saves to DB, returns the saved hero with a 201 status', async () => {
+    it('accepts new villain details and saves to DB, returns the saved villain with a 201 status', async () => {
       const stubbedCreate = sinon.stub(models.villains, 'create').returns(singleVillain)
       const req = { body: singleVillain }
       const stubbedSend = sinon.stub()
